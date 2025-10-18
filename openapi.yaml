@@ -15,11 +15,30 @@ paths:
               required: [fullname, email, status, guests, place]
               properties:
                 fullname: { type: string }
-                email:    { type: string, format: email }
-                status:   { type: string, enum: [yes, no] }
-                guests:   { type: integer, minimum: 1, maximum: 10 }
-                place:    { type: string, example: "Tiệc Nhà Trai" }
-                message:  { type: string }
+                email: { type: string, format: email }
+                status: { type: string, enum: [yes, no] }
+                guests: { type: integer, minimum: 1, maximum: 10 }
+                place: { type: string, example: "Tiệc Nhà Trai" }
+                message: { type: string }
+      responses:
+        "201": { description: Created }
+        "400": { description: Bad Request }
+        "500": { description: Server Error }
+  /addWish:
+    post:
+      summary: Add a wish to loved ones
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [fullname, relationship, wish_msg, predefined_wish]
+              properties:
+                fullname: { type: string }
+                relationship: { type: string }
+                wish_msg: { type: string }
+                predefined_wish: { type: string }
       responses:
         "201": { description: Created }
         "400": { description: Bad Request }
