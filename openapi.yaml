@@ -1,0 +1,26 @@
+openapi: 3.0.3
+info:
+  title: Wedding RSVP API
+  version: 1.0.0
+paths:
+  /rsvp:
+    post:
+      summary: Create an RSVP record
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [fullname, email, status, guests, place]
+              properties:
+                fullname: { type: string }
+                email:    { type: string, format: email }
+                status:   { type: string, enum: [yes, no] }
+                guests:   { type: integer, minimum: 1, maximum: 10 }
+                place:    { type: string, example: "Tiệc Nhà Trai" }
+                message:  { type: string }
+      responses:
+        "201": { description: Created }
+        "400": { description: Bad Request }
+        "500": { description: Server Error }
