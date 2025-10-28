@@ -16,8 +16,10 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: "Missing required fields" });
     }
     // Airtable config
-    const { AIRTABLE_API_KEY, AIRTABLE_BASE_ID, AIRTABLE_TABLE_NAME } =
+    const { AIRTABLE_API_KEY, AIRTABLE_BASE_ID } =
       process.env;
+    const AIRTABLE_TABLE_NAME = "RSVP"; // change this if your table name differs
+
     const url = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${encodeURIComponent(
       AIRTABLE_TABLE_NAME
     )}`;

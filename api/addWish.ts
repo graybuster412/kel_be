@@ -18,8 +18,9 @@ export default async function handler(req, res) {
         // Airtable config
         const { AIRTABLE_API_KEY, AIRTABLE_BASE_ID } =
             process.env;
+        const AIRTABLE_TABLE_NAME = "Wishes"; // change this if your table name differs
         const url = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${encodeURIComponent(
-            "Wish"
+            AIRTABLE_TABLE_NAME
         )}`;
 
         const payload = {
@@ -29,7 +30,8 @@ export default async function handler(req, res) {
                         Fullname: fullname,
                         Relationship: relationship,
                         WishMessage: wish_msg,
-                        PredefinedWish: predefined_wish
+                        PredefinedWish: predefined_wish,
+                        CreatedAt: new Date().toISOString(),
                     },
                 },
             ],
