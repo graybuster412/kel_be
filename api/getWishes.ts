@@ -4,25 +4,25 @@ import axios from "axios";
  * Define the structure of a single wish
  */
 export interface Wish {
-  FullName: string;
-  WishMessage: string;
-  PredefinedWish: string;
+    FullName: string;
+    WishMessage: string;
+    PredefinedWish: string;
 }
 
 /**
  * Define the shape of the Airtable record
  */
 export interface AirtableRecord {
-  id: string;
-  fields: Wish;
-  createdTime: string;
+    id: string;
+    fields: Wish;
+    createdTime: string;
 }
 
 /**
  * Airtable API Response structure
  */
 export interface AirtableResponse {
-  records: AirtableRecord[];
+    records: AirtableRecord[];
 }
 
 /**
@@ -30,28 +30,30 @@ export interface AirtableResponse {
  * @returns Promise<Wish[]>
  */
 export async function getWishes(): Promise<Wish[]> {
-  const AIRTABLE_API_KEY = process.env.AIRTABLE_API_KEY!;
-  const AIRTABLE_BASE_ID = process.env.AIRTABLE_BASE_ID!;
-  const AIRTABLE_TABLE_NAME = "Wish"; // change this if your table name differs
+    const AIRTABLE_API_KEY = process.env.AIRTABLE_API_KEY!;
+    const AIRTABLE_BASE_ID = process.env.AIRTABLE_BASE_ID!;
+    const AIRTABLE_TABLE_NAME = "Wish"; // change this if your table name differs
 
-  try {
-    const response = await axios.get<AirtableResponse>(
-      `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${AIRTABLE_TABLE_NAME}`,
-      {
-        headers: {
-          Authorization: `Bearer ${AIRTABLE_API_KEY}`,
-        },
-      }
-    );
+    try {
+        const response = await axios.get<AirtableResponse>(
+            `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${encodeURIComponent(
+                AIRTABLE_TABLE_NAME
+            )}?maxRecords=10&view=Grid?sort%5B0%5D%5Bfield%5D=CreatedAt?sort%5B0%5D%5Bdirection%5D=desc`,
+            {
+                headers: {
+                    Authorization: `Bearer ${AIRTABLE_API_KEY}`,
+                },
+            }
+        );
 
-    // Map Airtable records to a simple array of wishes
-    const wishes: Wish[] = response.data.records.map(
-      (record) => record.fields
-    );
+        // Map Airtable records to a simple array of wishes
+        const wishes: Wish[] = response.data.records.map(
+            (record) => record.fields
+        );
 
-    return wishes;
-  } catch (error: any) {
-    console.error("Error fetching wishes:", error.message);
-    throw new Error("Failed to fetch wishes from Airtable");
-  }
+        return wishes;
+    } catch (error: any) {
+        console.error("Error fetching wishes:", error.message);
+        throw new Error("Failed to fetch wishes from Airtable");
+    }
 }
