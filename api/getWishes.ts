@@ -38,7 +38,7 @@ export async function getWishes(): Promise<Wish[]> {
         const response = await axios.get<AirtableResponse>(
             `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${encodeURIComponent(
                 AIRTABLE_TABLE_NAME
-            )}?maxRecords=10&view=Grid?sort%5B0%5D%5Bfield%5D=CreatedAt?sort%5B0%5D%5Bdirection%5D=desc`,
+            )}?maxRecords=50&view=Grid?sort%5B0%5D%5Bfield%5D=CreatedAt?sort%5B0%5D%5Bdirection%5D=desc`,
             {
                 headers: {
                     Authorization: `Bearer ${AIRTABLE_API_KEY}`,
