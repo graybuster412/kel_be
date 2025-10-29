@@ -32,7 +32,7 @@ export interface AirtableResponse {
 export async function getWishes(): Promise<Wish[]> {
   const AIRTABLE_API_KEY = process.env.AIRTABLE_API_KEY!;
   const AIRTABLE_BASE_ID = process.env.AIRTABLE_BASE_ID!;
-  const AIRTABLE_TABLE_NAME = "Wishes"; // change this if your table name differs
+  const AIRTABLE_TABLE_NAME = "Wish"; // change this if your table name differs
 
   try {
     const response = await axios.get<AirtableResponse>(
