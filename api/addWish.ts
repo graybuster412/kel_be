@@ -31,7 +31,6 @@ export default async function handler(req, res) {
                         Relationship: relationship,
                         WishMessage: wish_msg,
                         PredefinedWish: predefined_wish,
-                        CreatedAt: new Date().toISOString(),
                     },
                 },
             ],

@@ -39,7 +39,6 @@ paths:
                 relationship: { type: string }
                 wish_msg: { type: string }
                 predefined_wish: { type: string }
-                createdAt: { type: string }
       responses:
         "201": { description: Created }
         "400": { description: Bad Request }
