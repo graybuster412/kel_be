@@ -34,7 +34,6 @@ export default async function handler(req, res) {
             Guests: Number(guests),
             Place: place,
             Message: message || "",
-            Timestamp: new Date().toISOString(),
           },
         },
       ],
